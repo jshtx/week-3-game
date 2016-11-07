@@ -3,7 +3,7 @@
 
 
 //declare variables and arrays
-var answers = ["virginia", "texas", "chair"];
+var answers = ["virginia", "texas", "alabama", "alaska", "colorado", "florida", "california"];
 var wins = 0;
 var randomWord = answers[Math.floor(Math.random() * answers.length)];
 var guessesLeft = 10;
@@ -12,9 +12,9 @@ var underscores = [];
 
 //converts random word into underscores
 for(i = 0; i < randomWord.length; i++) {
-    		underscores = underscores + "_ "
+    		underscores[i] = "_ "
 		}
-document.getElementById("word").innerHTML = underscores;
+document.getElementById("word").innerHTML = underscores.join(" ");
 console.log(underscores)
 
 console.log(randomWord)
@@ -26,7 +26,7 @@ console.log(randomWord)
 
         //converts the computers random word from string to array
         var computerWord = randomWord.split('');
-		var newUnderscores = underscores.split('');
+		
 
 		
         //cycles through word to see if user guessed correct letter
@@ -35,11 +35,10 @@ console.log(randomWord)
         	if (letter === computerWord[i]) {
 
         	
-        	newUnderscores.splice(i, i, letter);
-        	console.log(newUnderscores)
+        	underscores.splice(i, 1, letter);
         	
-        	console.log(underscores[i])
-          	document.getElementById("word").innerHTML = newUnderscores.join(" ");
+        	console.log(underscores)
+          	document.getElementById("word").innerHTML = underscores.join(" ");
   			        
         	} 
         	
@@ -58,7 +57,7 @@ console.log(randomWord)
 
         //puts the users guess in the guess array and displays it
         guess.push(letter);
-        document.getElementById("alreadyGuessed").innerHTML = guess;
+        document.getElementById("alreadyGuessed").innerHTML = guess.join(" ");
         	
         
 
