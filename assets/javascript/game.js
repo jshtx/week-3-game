@@ -37,7 +37,7 @@ var resetGame = function(){
 	guess = []; //resets the guess array to empty
 	document.getElementById("alreadyGuessed").innerHTML = guess.join(" ");
 
-	underscores = []; //resets the underscores to empty
+	underscores = []; //resets the underscores to
 	
 	//selects a random word
 	randomWord = answers[Math.floor(Math.random() * answers.length)];
@@ -63,14 +63,15 @@ document.getElementById("word").innerHTML = underscores.join(" ");
 
         //converts the computers random word from string to array
         var computerWord = randomWord.split('');
-		
+		var counter2 = 0;
 
 		
         //cycles through word to see if user guessed correct letter
         for (i = 0; i < computerWord.length; i++) {
 
         	if (letter === computerWord[i]) {
-
+        	counter2++;
+        	console.log(counter2)
         		//if letter has already been guessed it prevents anything from happening
         	for (j = 0; j < guess.length; j++) {
 
@@ -80,15 +81,20 @@ document.getElementById("word").innerHTML = underscores.join(" ");
         	}
         }
 
+        	counter2
+
         	//replaces the underscores with the correctly guessed letter
         	underscores.splice(i, 1, letter);
         	
         	//displays the underscores and correctly guessed letters
         	console.log(underscores)
           	document.getElementById("word").innerHTML = underscores.join(" ");
-  			//adds to counter
-  			counter++;    
-  			console.log(counter)
+  			
+          	
+  				//adds to counter
+  				counter++;    
+  				console.log(counter)
+  				
         	} 
         	
         }
@@ -102,11 +108,13 @@ document.getElementById("word").innerHTML = underscores.join(" ");
         document.getElementById("alreadyGuessed").innerHTML = guess.join(" ");
         	
         
-
+        if (counter2 === 0 ){
         //subtracts the guesses left for user & displays guesses left on screen
         guessesLeft--;
         document.getElementById("guessLeft").innerHTML = guessesLeft;
-        
+        counter2 = 0;
+        console.log(counter2)
+        }
  		//ends game if no guess are left
  		if (guessesLeft == 0) {
  			losses++;
