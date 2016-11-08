@@ -1,24 +1,61 @@
+//initially declare variables and arrays
 
-
-
-
-//declare variables and arrays
-var answers = ["virginia", "texas", "alabama", "alaska", "colorado", "florida", "california"];
 var wins = 0;
-var randomWord = answers[Math.floor(Math.random() * answers.length)];
+var losses = 0;
+var counter = 0;
 var guessesLeft = 10;
 var guess = [];
 var underscores = [];
 
+
+var answers = ["alabama", "alaska", "arizona", "arkansas", "california", "colorado", 
+				"connecticut", "delaware", "florida", "georgia", "hawaii",
+				"idaho", "illinois", "indiana", "iowa", "kansas", "kentucky", 
+				"louisiana", "maine", "maryland", "massachusetts", "michigan",
+				"minnesota", "mississippi", "missouri", "montana", "nebraska",
+				"nevada", "ohio", "oklahoma", "oregon", "pennsylvania", "tennessee",
+				"texas", "utah", "vermont", "virginia", "washington", "wisconsin",
+				"wyoming"];
+//randomly selects a word from the array answers
+var randomWord = answers[Math.floor(Math.random() * answers.length)];
+console.log(randomWord)
 //converts random word into underscores
 for(i = 0; i < randomWord.length; i++) {
-    		underscores[i] = "_ "
-		}
+    		underscores[i] = "_"
+			
+//displays the correctly guessed letters		
 document.getElementById("word").innerHTML = underscores.join(" ");
-console.log(underscores)
+}
 
-console.log(randomWord)
+//function to reset the game after a win or loss
+var resetGame = function(){
 
+	counter = 0; //resets counter to 0
+	guessesLeft = 10; //resets number of guesses left to 10
+	document.getElementById("guessLeft").innerHTML = guessesLeft;
+	
+	guess = []; //resets the guess array to empty
+	document.getElementById("alreadyGuessed").innerHTML = guess.join(" ");
+
+	underscores = []; //resets the underscores to empty
+	
+	//selects a random word
+	randomWord = answers[Math.floor(Math.random() * answers.length)];
+	console.log(randomWord)
+	console.log(counter)
+	//converts random word into underscores
+	for(i = 0; i < randomWord.length; i++) {
+    			underscores[i] = "_"
+			
+
+
+//displays the correctly guessed letters		
+document.getElementById("word").innerHTML = underscores.join(" ");
+}
+
+}
+
+//when a key is hit by user all this is operated
  document.onkeyup = function(event) {
 
         // Captures the key press, converts it to lowercase, and saves it to a variable.
@@ -34,23 +71,28 @@ console.log(randomWord)
 
         	if (letter === computerWord[i]) {
 
-        	
-        	underscores.splice(i, 1, letter);
-        	
-        	console.log(underscores)
-          	document.getElementById("word").innerHTML = underscores.join(" ");
-  			        
-        	} 
-        	
-        }
-        //if letter has already been guessed it prevents anything from happening
-        for (i = 0; i < guess.length; i++) {
+        		//if letter has already been guessed it prevents anything from happening
+        	for (j = 0; j < guess.length; j++) {
 
-        	if (letter === guess[i]) {
+        	if (letter === guess[j]) {
           	return
           
         	}
         }
+
+        	//replaces the underscores with the correctly guessed letter
+        	underscores.splice(i, 1, letter);
+        	
+        	//displays the underscores and correctly guessed letters
+        	console.log(underscores)
+          	document.getElementById("word").innerHTML = underscores.join(" ");
+  			//adds to counter
+  			counter++;    
+  			console.log(counter)
+        	} 
+        	
+        }
+        
 
 
 
@@ -65,9 +107,24 @@ console.log(randomWord)
         guessesLeft--;
         document.getElementById("guessLeft").innerHTML = guessesLeft;
         
-       	
+ 		//ends game if no guess are left
+ 		if (guessesLeft == 0) {
+ 			losses++;
+ 			document.getElementById("losses").innerHTML = losses;
+ 			resetGame();
+ 			
+ 			console.log(losses)		
+ 		}
+ 		if (counter == computerWord.length ){
+ 			wins++;
+ 			
+ 			resetGame();
+ 			document.getElementById("wins").innerHTML = wins;
+ 			console.log(wins)
+ 		}     	
        	
 
         }
+
 
 
